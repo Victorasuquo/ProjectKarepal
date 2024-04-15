@@ -140,7 +140,7 @@ export class AuthService {
     if (user) {
       if (!user.isGoogleAuth) {
         throw new ConflictException(
-          'Looks like you already have an account! Use your existing login details or choose a different email address to sign up with Google',
+          "It seems you're already registered! Please use your existing login info or choose a different email to sign up with Google.",
         );
       }
 

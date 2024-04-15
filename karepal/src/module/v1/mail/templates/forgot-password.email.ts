@@ -14,7 +14,7 @@ export function ForgotPasswordTemplate(data: ISendResetPasswordEmailTemplate) {
     <p style='font-size:1.1em'>Hi,</p>
     <p>This is the code to reset your password. This code
       <b>expires</b>
-      in 5 minutes</p>
+      in 15 minutes</p>
     <h2
       style='background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;'
     >${data.code}</h2>

@@ -20,11 +20,6 @@ export class BaseHelper {
     return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
   }
 
-  // static isValidFileNameAwsUpload = (fileName: string) => {
-  //   const regex = /^[a-zA-Z0-9_\-/]+\/[a-zA-Z0-9_\-]+(?:\.(jpg|png|jpeg))$/;
-  //   return regex.test(fileName);
-  // };
-
   static encryptData(
     data: string,
     encryptionKey: string = encryptionKeyFromEnv,
@@ -70,9 +65,4 @@ export class BaseHelper {
 
     return encryptionKey;
   }
-
-  // static generateFileName(folderName = 'uploads', mimetype: string) {
-  //   const timeStampInMilliSeconds = Date.now();
-  //   return `${folderName}/${timeStampInMilliSeconds}.${mimetype.split('/')[1]}`;
-  // }
 }
