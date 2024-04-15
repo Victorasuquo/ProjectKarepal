@@ -3,7 +3,7 @@ import { OtpTypeEnum } from 'src/common/enums/otp.enum';
 
 export type OTPDocument = OTP & Document;
 
-@Schema({ expires: 300 })
+@Schema({ expires: 1200 })
 export class OTP {
   @Prop({ required: true, unique: true })
   email: string;
@@ -17,7 +17,7 @@ export class OTP {
   @Prop({ default: new Date() })
   createdAt: Date;
 
-  @Prop({ default: Date.now(), expires: 300 })
+  @Prop({ default: Date.now(), expires: 1200 })
   expiresAt: Date;
 }
 
