@@ -13,4 +13,7 @@ export declare const RESPONSE_CONSTANT: {
         GET_CURRENT_USER_SUCCESS: string;
         UPDATE_USER_PROFILE_SUCCESS: string;
     };
+    NEWSLETTER: {
+        SUBSCRIPTION_SUCCESS: string;
+    };
 };

@@ -14,4 +14,8 @@ export const RESPONSE_CONSTANT = {
     GET_CURRENT_USER_SUCCESS: 'Records Retrieved Successfully',
     UPDATE_USER_PROFILE_SUCCESS: 'Profile Successfully Updated',
   },
+  NEWSLETTER: {
+    SUBSCRIPTION_SUCCESS:
+      'Subscription Successful, You have been added to our wait list ',
+  },
 };

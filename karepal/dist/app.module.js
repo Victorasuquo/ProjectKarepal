@@ -13,12 +13,20 @@ const database_module_1 = require("./module/v1/database/database.module");
 const auth_module_1 = require("./module/v1/auth/auth.module");
 const otp_module_1 = require("./module/v1/otp/otp.module");
 const mail_module_1 = require("./module/v1/mail/mail.module");
+const subscriber_module_1 = require("./module/v1/subscriber/subscriber.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, database_module_1.DatabaseModule, auth_module_1.AuthModule, otp_module_1.OtpModule, mail_module_1.MailModule],
+        imports: [
+            user_module_1.UserModule,
+            database_module_1.DatabaseModule,
+            auth_module_1.AuthModule,
+            otp_module_1.OtpModule,
+            mail_module_1.MailModule,
+            subscriber_module_1.SubscriberModule,
+        ],
         controllers: [],
         providers: [],
     })
