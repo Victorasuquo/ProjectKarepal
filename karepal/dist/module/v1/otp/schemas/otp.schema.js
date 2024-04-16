@@ -32,11 +32,11 @@ __decorate([
     __metadata("design:type", Date)
 ], OTP.prototype, "createdAt", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: Date.now(), expires: 300 }),
+    (0, mongoose_1.Prop)({ default: Date.now(), expires: 1200 }),
     __metadata("design:type", Date)
 ], OTP.prototype, "expiresAt", void 0);
 exports.OTP = OTP = __decorate([
-    (0, mongoose_1.Schema)({ expires: 300 })
+    (0, mongoose_1.Schema)({ expires: 1200 })
 ], OTP);
 exports.OTPSchema = mongoose_1.SchemaFactory.createForClass(OTP);
 //# sourceMappingURL=otp.schema.js.map

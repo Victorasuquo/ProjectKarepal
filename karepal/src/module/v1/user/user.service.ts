@@ -71,20 +71,22 @@ export class UserService {
     const { username, age } = payload;
 
     if (username) {
-      const usernameUsed = await this.userModel.countDocuments({
+      const existingUserWithUsername = await this.userModel.findOne({
         username,
         _id: { $ne: userId },
       });
 
-      if (usernameUsed) {
+      if (existingUserWithUsername) {
         throw new BadRequestException(
           'Username already used, kindly select a new username',
         );
       }
     }
-    if (age) {
-      await this.userModel.updateOne({ _id: userId }, { age });
-    }
+
+    await this.userModel.updateOne(
+      { _id: userId },
+      { ...(username && { username }), ...(age && { age }) },
+    );
   }
 
   async createUserFromGoogle(payload: GoogleAuthDto) {

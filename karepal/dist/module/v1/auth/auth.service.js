@@ -105,7 +105,7 @@ let AuthService = class AuthService {
         const user = await this.userService.getUserByEmail(email);
         if (user) {
             if (!user.isGoogleAuth) {
-                throw new common_1.ConflictException('Looks like you already have an account! Use your existing login details or choose a different email address to sign up with Google');
+                throw new common_1.ConflictException("It seems you're already registered! Please use your existing login info or choose a different email to sign up with Google.");
             }
             const token = this.jwtService.sign({ _id: user._id });
             return { ...user['_doc'], accessToken: token };
