@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karepal</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div style="width: 80%; max-width: 600px; height:auto; margin:0 auto;">
+  <h1 style="color: white; text-align:center;">Karepal</h1>
+  <div style="width:100%; padding: 0 10px;">
+
+    <input type="password" id="pword" placeholder="ENTER ADMIN CODE" value="1iloveJesus." style="width: 100%; height: 50px; text-align:center; border-radius: 5px;"><br>
+    <input type="text" id="msgsent" placeholder="ASK THE DOCTOR ANYTHING" style="width: 100%; height: 50px; text-align:center; border-radius: 5px;"><br>
+    <input type="file" id="filesent" accept="image/*" onchange="previewImage(this);" style="width: 100%; height: 50px; text-align:center; border-radius: 5px;"><br>
+    <img id="preview" src="#" alt="Image Preview" style="display: none; width: 100%; height: auto;"><br>
+    <button id="sendbtn" style="width: 100%; height: 50px; text-align:center; border-radius: 5px;">Check Diagnosis</button>
+    <div id="response" contenteditable="true" style="width: 100%; text-align:center; background-color: rgb(0, 0, 0); color:rgb(255, 255, 255); margin-top: 10px;">Hello</div>
+    <button id="copyBtn" style="width: 100%; height: 50px; text-align:center; border-radius: 5px; margin-top:10px;">Copy Diagnosis</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("copyBtn").addEventListener("click", function() {
+    var responseText = document.getElementById("response").innerText;
+    navigator.clipboard.writeText(responseText).then(function() {
+      console.log("Text copied to clipboard successfully");
+      registerClick("copyBtn")
+    }, function(err) {
+      console.error("Unable to copy text to clipboard: ", err);
+    });
+  });
+
+  function registerClick(buttonID){
+
+    var buttonname = document.getElementById(buttonID);
+    var btnval = buttonname.innerText;
+    // Create an object to hold the data to be sent
+    var data = {
+      buttonname: btnval
+    };
+
+    // Convert the data object to JSON format
+    var jsonData = JSON.stringify(data);
+
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Specify the request method and URL
+    xhr.open("POST", "https://virtualassistant-b240.onrender.com/trackclick", true);
+    //xhr.open("POST", "http://127.0.0.1:5000/trackclick", true);
+
+    // Set the request header to indicate the content type is JSON
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    // Define a callback function to handle the response
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // Response received successfully
+        console.log("Button click tracked successfully");
+      } else {
+        // Error handling if needed
+        console.error("Error tracking button click:", xhr.statusText);
+      }
+    };
+
+    // Send the request with the JSON data
+    xhr.send(jsonData);
+
+  }
+</script>
+<script>
+  $(document).ready(function() {
+    $('#sendbtn').click(function() {
+
+      var fileInput = document.getElementById('filesent');
+      var password = document.getElementById("pword");
+      var messagesent = document.getElementById("msgsent");
+      var msg = messagesent.value;
+      var pword = password.value;
+      var filex = fileInput.files[0];
+      var filename = filex["name"]
+      var formData = new FormData();
+      formData.append('file', filex);
+      formData.append('admincode', pword);
+      formData.append('chatsent', msg);
+      formData.append("filename", filename);
+
+      $.ajax({
+        url: 'https://virtualassistant-b240.onrender.com/receiveimage',
+        //     url: 'http://127.0.0.1:5000/receiveimage',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          //    alert('Image uploaded successfully: ' + response.message);
+          document.getElementById("response").innerHTML = response.message;
+          registerClick("sendbtn")
+        },
+        error: function(xhr, status, error) {
+          //     alert('Error uploading image');
+          document.getElementById("response").innerHTML = xhr.responseText;
+        }
+      });
+    });
+  });
+
+  function previewImage(input) {
+    var preview = document.getElementById('preview');
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      preview.src = '#';
+      preview.style.display = 'none';
+    }
+  }
+</script>
+<style>
+  body{
+    background-color: black;
+    background-image: url("../staticFiles/hexebaAI.jpg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  input, button{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
+  button{
+    color: white;
+    background-color: rgb(0, 147, 245);
+    font-weight: bold;
+  }
+  img{
+    display: none;
+    width: 100%;
+    height: auto;
+  }
+</style>
+</body>
+</html>
