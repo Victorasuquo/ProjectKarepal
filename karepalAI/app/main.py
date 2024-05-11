@@ -11,7 +11,7 @@ import json
 import telebot
 from telebot import types
 import hexebaML
-import hexeba_binance
+
 load_dotenv(".env")
 gkey = os.getenv("GOOGLE_KEY")
 
@@ -150,11 +150,11 @@ class Receiveimage(Resource):
             return jsonify({'error': str(e)})
 api.add_resource(Receiveimage, "/receiveimage")
 
-class Testmarket(Resource):
-    def get(self):
-        m = hexeba_binance.check_price(binance_key,binance_secret,"BTCUSDT")
-        return jsonify({'Btc-Price': str(m)})
-api.add_resource(Testmarket, "/testmarket")
+# class Testmarket(Resource):
+#     def get(self):
+#         m = hexeba_binance.check_price(binance_key,binance_secret,"BTCUSDT")
+#         return jsonify({'Btc-Price': str(m)})
+# api.add_resource(Testmarket, "/testmarket")
 
 class Testmessage(Resource):
     def get(self):
